@@ -27,6 +27,7 @@ const chapters = async (asin, { region }) => {
       })
       .catch((error) => {
         console.log(chalk.red(error.response.data.message));
+        process.exit(1);
       });
 
     return c;
