@@ -38,7 +38,16 @@ const chapters = async (asin, { region, path, debug }) => {
         }
       })
       .catch((error) => {
-        console.log(chalk.red(error.response.data.message));
+        if (error.response.data.message === `${asin} has no chapters`) {
+          console.error(
+            chalk.red(
+              `Could not find any chapters. Please check that you have entered the correct ASIN and region.`
+            )
+          );
+        } else {
+          console.log(chalk.red(error.response.data.message));
+        }
+
         process.exit(1);
       });
 
