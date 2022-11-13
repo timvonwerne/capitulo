@@ -7,7 +7,10 @@ import cover from './commands/cover.js';
 
 program
   .version('1.0.0')
-  .argument('<asin>', 'ASIN of the book')
+  .argument(
+    '<asin>',
+    'ASIN of the book. To be retrieved from the URL of the book on Audible.'
+  )
   .option('-r, --region <region>', 'Region of the book', 'us')
   .option('-p, --path <path>', 'Path to save the files', '')
   .action((asin, options) => {
@@ -29,7 +32,8 @@ program
 
 program
   .command('chapters <asin>')
-  .option('-r, --region <region>', 'Region to use for the request')
+  .description('Get the chapters and their timestamps.')
+  .option('-r, --region <region>', 'Region to use for the request', 'us')
   .option(
     '-p, --path <path>',
     'Path to save the chapters file to',
@@ -43,7 +47,8 @@ program
 
 program
   .command('description <asin>')
-  .option('-r, --region <region>', 'Region to use for the request')
+  .description('Get the description of the audiobook.')
+  .option('-r, --region <region>', 'Region to use for the request', 'us')
   .option(
     '-p, --path <path>',
     'Path to save the file containing the description to',
@@ -58,7 +63,8 @@ program
 
 program
   .command('cover <asin>')
-  .option('-r, --region <region>', 'Region to use for the request')
+  .description('Get the cover of the audiobook.')
+  .option('-r, --region <region>', 'Region to use for the request', 'us')
   .option('-p, --path <path>', 'Path to save the cover image to', 'cover.jpg')
   .option(
     '-d, --debug',
