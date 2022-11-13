@@ -2,7 +2,7 @@ import axios from 'axios';
 import chalk from 'chalk';
 import fs from 'fs';
 
-const description = async (asin, { region, debug }) => {
+const description = async (asin, { region, path, debug }) => {
   var d = '';
   if (asin) {
     await axios
@@ -16,7 +16,7 @@ const description = async (asin, { region, debug }) => {
 
         if (!debug) {
           fs.writeFile(
-            `description.txt`,
+            path,
             d,
             { flag: 'wx' },
             (err) => err && console.error(chalk.red(err))

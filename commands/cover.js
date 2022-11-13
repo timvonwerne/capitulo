@@ -2,7 +2,7 @@ import axios from 'axios';
 import chalk from 'chalk';
 import fs from 'fs';
 
-const cover = async (asin, { region, debug }) => {
+const cover = async (asin, { region, path, debug }) => {
   var c = '';
   if (asin) {
     await axios
@@ -22,7 +22,7 @@ const cover = async (asin, { region, debug }) => {
               url: c,
               responseType: 'stream',
             }).then((response) => {
-              response.data.pipe(fs.createWriteStream(`cover.jpg`));
+              response.data.pipe(fs.createWriteStream(path));
             });
           } else {
             console.log(chalk.green('Cover URL: ') + c);

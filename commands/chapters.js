@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import formatTime from '../util/time-formatter.js';
 import fs from 'fs';
 
-const chapters = async (asin, { region, debug }) => {
+const chapters = async (asin, { region, path, debug }) => {
   var l = 0;
   var c = [];
   var cf = '';
@@ -44,7 +44,7 @@ const chapters = async (asin, { region, debug }) => {
 
     if (!debug) {
       fs.writeFile(
-        `chapters.txt`,
+        path,
         cf,
         { flag: 'wx' },
         (err) => err && console.error(chalk.red(err))
