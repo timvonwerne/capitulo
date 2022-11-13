@@ -1,7 +1,8 @@
 import axios from 'axios';
 import chalk from 'chalk';
+import fs from 'fs';
 
-const description = async (asin, { region }) => {
+const description = async (asin, { region, debug }) => {
   var d = '';
   if (asin) {
     await axios
@@ -11,10 +12,21 @@ const description = async (asin, { region }) => {
         },
       })
       .then((response) => {
-        // Clean up the description from HTML tags
         d = response.data.summary.replace(/(<([^>]+)>)/gi, '');
+
+        if (!debug) {
+          fs.writeFile(
+            `description.txt`,
+            d,
+            { flag: 'wx' },
+            (err) => err && console.error(chalk.red(err))
+          );
+        } else {
+          console.log(d);
+        }
       })
       .catch((error) => {
+        console.log(error);
         console.error(chalk.red(error.response.data.message));
         process.exit(1);
       });
@@ -22,16 +34,6 @@ const description = async (asin, { region }) => {
     console.error(chalk.red('No ASIN provided'));
     process.exit(1);
   }
-
-  return d;
 };
 
-const printDescription = async (asin, options) => {
-  const d = await description(asin, options);
-
-  if (d !== '') {
-    console.log(d);
-  }
-};
-
-export { description, printDescription };
+export default description;
