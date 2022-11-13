@@ -15,5 +15,8 @@
     "chalk": "^5.1.2",
     "commander": "^9.4.1",
     "fs": "^0.0.1-security"
+  },
+  "peerDependencies": {
+    "node": ">=12.0.0"
   }
 }
